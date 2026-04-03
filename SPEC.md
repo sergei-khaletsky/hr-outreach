@@ -41,30 +41,44 @@
 
 ```mermaid
 flowchart TD
-    A[/hh-outreach N/] --> B[INIT: загрузить sent.json, проверить CDP]
-    B --> C[SEARCH: найти вакансии по фильтрам]
+    A[/hh-outreach N/] --> A1{sent.json valid?}
+    A1 -->|Нет| A2[Restore from .bak or create empty]
+    A1 -->|Да| A3{>180 откликов?}
+    A2 --> A3
+    A3 -->|Да| A4{Пользователь OK?}
+    A3 -->|Нет| B
+    A4 -->|Нет| S
+    A4 -->|Да| B
+    B[INIT: проверить CDP] --> B1{CDP доступен?}
+    B1 -->|Нет| B2[ERROR: Нужен Allow в Chrome]
+    B1 -->|Да| C[SEARCH: найти вакансии по фильтрам]
     C --> D{Вакансии найдены?}
     D -->|Нет| E[REPORT: 0 найдено]
     D -->|Да| F[READ: открыть вакансию, прочитать описание]
     F --> G{Уже откликались?}
-    G -->|Да| H[SKIP: ALREADY_APPLIED]
+    G -->|Да| H[LOG: SKIP_ALREADY_APPLIED]
     G -->|Нет| I[GENERATE: кастомный текст]
     I --> J{Режим?}
-    J -->|dry-run| K[LOG: DRY_RUN]
+    J -->|dry-run| K[LOG: SKIP_DRY_RUN]
     J -->|preview| L[Показать текст, ждать OK]
     J -->|полный| M[SEND: отправить через CDP]
     L -->|OK| M
-    L -->|Skip| H
-    M --> N{Доставлено?}
+    L -->|Skip| H2[LOG: SKIP_USER]
+    M --> M1{Anti-bot detected?}
+    M1 -->|Да| M2[LOG: FAILED_ANTI_BOT, STOP]
+    M1 -->|Нет| N{Доставлено?}
     N -->|Да| O[LOG: SENT]
-    N -->|Нет| P[LOG: FAILED + reason]
+    N -->|Нет| P[Screenshot + LOG: FAILED_NO_CONFIRMATION]
     O --> Q{Ещё вакансии?}
     P --> Q
     H --> Q
+    H2 --> Q
     K --> Q
     Q -->|Да| R[THROTTLE: пауза 5-10 сек]
     R --> F
-    Q -->|Нет| S[REPORT: итоги]
+    Q -->|Нет| S[REPORT: итоги с breakdown по reason codes]
+    M2 --> S
+    B2 --> S
 ```
 
 ## 6. Шаблон сопроводительного письма
@@ -212,11 +226,25 @@ for (var attempt = 0; attempt < 10; attempt++) {
 
 | Ошибка | Reason code | Действие |
 |--------|-------------|----------|
-| Daemon failed | CDP_UNAVAILABLE | Остановить, сообщить пользователю |
-| Нет кнопки Откликнуться | ALREADY_APPLIED | SKIP |
-| Textarea не появилась | NO_TEXTAREA | SKIP |
-| Резюме не доставлено | NO_CONFIRMATION | FAILED |
-| Chrome завис | CDP_TIMEOUT | Остановить, частичный отчёт |
+| Daemon failed | FAILED_CDP_UNAVAILABLE | Остановить, сообщить пользователю |
+| Нет кнопки Откликнуться | SKIP_ALREADY_APPLIED | SKIP |
+| Textarea не появилась | SKIP_NO_TEXTAREA | SKIP |
+| Резюме не доставлено | FAILED_NO_CONFIRMATION | FAILED |
+| Chrome завис | FAILED_CDP_TIMEOUT | Остановить, частичный отчёт |
+| Dry-run режим | SKIP_DRY_RUN | Записать в лог, не отправлять |
+| Пользователь пропустил в preview | SKIP_USER | SKIP |
+| Captcha / anti-bot | FAILED_ANTI_BOT | STOP, показать частичный отчёт |
+| CDP eval timeout | FAILED_CDP_ERROR | SKIP текущую, продолжить |
+
+### Дополнительные ветки flow
+
+**>180 откликов:** При sent.json.vacancies.length > 150 - показать предупреждение. При > 180 - запросить подтверждение у пользователя перед продолжением.
+
+**Anti-bot detection:** Если после "Откликнуться" страница содержит "капча", "подтвердите", "подозрительная активность" - немедленный STOP с reason FAILED_ANTI_BOT и частичным отчётом.
+
+**Corrupted sent.json:** При загрузке: если JSON не парсится - попробовать восстановить из sent.json.bak. Если .bak тоже corrupted - создать пустой и предупредить пользователя.
+
+**UI fallback:** Если кнопка не найдена по textContent - сделать screenshot, показать warning, SKIP с reason FAILED_CDP_ERROR.
 
 ## 8. Хранение данных
 
