@@ -1,138 +1,196 @@
-# HH Outreach - Бэклог и спринты
+# HH Outreach - Бэклог и спринты (v3, post-Codex)
 
 ## Бэклог
 
 | ID | Задача | Приоритет | Спринт | Статус |
 |----|--------|-----------|--------|--------|
-| HH-01 | Создать SKILL.md с полной спецификацией | crit | 1 | backlog |
-| HH-02 | Создать ~/hh-outreach-data/ и sent.json с 64 записями | crit | 1 | backlog |
-| HH-03 | CDP healthcheck: функция проверки доступности | high | 1 | backlog |
-| HH-04 | SEARCH: поиск вакансий через CDP eval с фильтрацией | crit | 1 | backlog |
-| HH-05 | SEARCH: дедупликация по sent.json | high | 1 | backlog |
-| HH-06 | SEARCH: пагинация (страницы 0-N) | med | 1 | backlog |
-| HH-07 | READ: извлечение описания вакансии через CDP eval | crit | 1 | backlog |
-| HH-08 | READ: парсинг зарплаты (от/до, gross/net, $/руб) | high | 1 | backlog |
-| HH-09 | READ: проверка "Вы откликнулись" | high | 1 | backlog |
-| HH-10 | Тест Спринт 1: dry-run на 5 вакансий | crit | 1 | backlog |
-| HH-11 | GENERATE: модульный шаблон (6 блоков) | crit | 2 | backlog |
-| HH-12 | GENERATE: 5 вариантов OPENING | high | 2 | backlog |
-| HH-13 | GENERATE: 7 модулей WHAT_I_DO (по типу вакансии) | high | 2 | backlog |
-| HH-14 | GENERATE: нормализация зарплаты для блока OFFER | high | 2 | backlog |
-| HH-15 | GENERATE: anti-AI проверка текста | med | 2 | backlog |
-| HH-16 | Тест Спринт 2: генерация 10 текстов, ручная проверка качества | crit | 2 | backlog |
-| HH-17 | SEND: DOM-based клики (eval по textContent, НЕ clickxy) | crit | 3 | backlog |
-| HH-18 | SEND: обработка popup "вакансия в другой стране" | high | 3 | backlog |
-| HH-19 | SEND: polling textarea (500ms, timeout 5s) | high | 3 | backlog |
-| HH-20 | SEND: polling "Резюме доставлено" (500ms, timeout 5s) | high | 3 | backlog |
-| HH-21 | SEND: обработка обязательного сопроводительного | med | 3 | backlog |
-| HH-22 | SEND: обработка выбора резюме (если несколько) | med | 3 | backlog |
-| HH-23 | Тест Спринт 3: отправка 3 откликов в preview режиме | crit | 3 | backlog |
-| HH-24 | LOG: atomic write sent.json (tmp + rename + backup) | crit | 4 | backlog |
-| HH-25 | LOG: reason codes в sent.json и дневном логе | high | 4 | backlog |
-| HH-26 | LOG: дневной лог log-YYYY-MM-DD.md | high | 4 | backlog |
-| HH-27 | THROTTLE: пауза 5-10 сек (random) между откликами | crit | 4 | backlog |
-| HH-28 | THROTTLE: лимит 30 откликов за сессию | high | 4 | backlog |
-| HH-29 | THROTTLE: предупреждение при >150 в sent.json | med | 4 | backlog |
-| HH-30 | REPORT: итоговый отчёт (sent/skip/failed + топ-3) | high | 4 | backlog |
-| HH-31 | REPORT: обновление stats в sent.json | med | 4 | backlog |
-| HH-32 | Тест Спринт 4: полный цикл 10 откликов | crit | 4 | backlog |
-| HH-33 | ERROR: graceful stop при CDP unavailable | high | 5 | backlog |
-| HH-34 | ERROR: частичный отчёт при crash | high | 5 | backlog |
-| HH-35 | ERROR: recovery после partial write sent.json | med | 5 | backlog |
-| HH-36 | ARGS: парсинг --query, --period, --min-salary, --any-format | high | 5 | backlog |
-| HH-37 | ARGS: парсинг --dry-run, --preview, --no-filter | high | 5 | backlog |
-| HH-38 | Wiki: обновить с результатами тестирования | med | 5 | backlog |
-| HH-39 | Codex review финальный (target: 10/10) | crit | 5 | backlog |
-| HH-40 | Тест Спринт 5: полный цикл 20 откликов автономно | crit | 5 | backlog |
+| HH-01 | SKILL.md: создать с полной спецификацией | crit | 1 | backlog |
+| HH-02 | DATA: создать ~/hh-outreach-data/ и sent.json с 64 записями | crit | 1 | backlog |
+| HH-03 | DATA: валидация sent.json при загрузке (malformed JSON, missing fields, dupes) | high | 1 | backlog |
+| HH-04 | DATA: backup sent.json перед каждым запуском | high | 1 | backlog |
+| HH-05 | DATA: atomic write sent.json (tmp + rename) | crit | 1 | backlog |
+| HH-06 | ARGS: парсинг количества (позиционный аргумент) | crit | 1 | backlog |
+| HH-07 | ARGS: парсинг --query, позиционный запрос | crit | 1 | backlog |
+| HH-08 | ARGS: парсинг --period, --min-salary | high | 1 | backlog |
+| HH-09 | ARGS: парсинг --dry-run, --preview, --any-format, --no-filter | crit | 1 | backlog |
+| HH-10 | CDP: healthcheck (list, проверка наличия HH таба) | crit | 1 | backlog |
+| HH-11 | CDP: tab reacquisition при потере соединения | high | 1 | backlog |
+| HH-12 | CDP: navigation timeout handling (15s max) | high | 1 | backlog |
+| HH-13 | CDP: eval timeout handling (10s max) | high | 1 | backlog |
+| HH-14 | Тест Спринт 1: `/hh-outreach 1 --dry-run` - CDP подключается, аргументы парсятся, sent.json загружается | crit | 1 | backlog |
+| HH-15 | SEARCH: построение URL поиска HH из аргументов | crit | 2 | backlog |
+| HH-16 | SEARCH: дефолтный фильтр remote-only + --any-format override | high | 2 | backlog |
+| HH-17 | SEARCH: извлечение списка вакансий через CDP eval (ID, title, company) | crit | 2 | backlog |
+| HH-18 | SEARCH: фильтрация по exclusion list (WB, Ozon, продажи, HR, стажёры, дизайнеры, разработчики) + --no-filter | crit | 2 | backlog |
+| HH-19 | SEARCH: дедупликация по sent.json | high | 2 | backlog |
+| HH-20 | SEARCH: пагинация (страницы 0-N, до набора нужного количества) | high | 2 | backlog |
+| HH-21 | SEARCH: обработка 0 результатов (показать сообщение, завершить) | med | 2 | backlog |
+| HH-22 | READ: навигация на вакансию через CDP nav | crit | 2 | backlog |
+| HH-23 | READ: извлечение описания (первые 1000 символов) через CDP eval | crit | 2 | backlog |
+| HH-24 | READ: парсинг зарплаты - "от X", "до Y", "от X до Y" | high | 2 | backlog |
+| HH-25 | READ: парсинг зарплаты - gross/net, $/руб/евро (курс: $1=100₽, €1=110₽) | high | 2 | backlog |
+| HH-26 | READ: непарсируемая зарплата = null (не упоминать в тексте) | med | 2 | backlog |
+| HH-27 | READ: проверка "Вы откликнулись" через eval | high | 2 | backlog |
+| HH-28 | Тест Спринт 2: `/hh-outreach 5 --dry-run` находит 5 вакансий, читает описания. Проверить: ID, компания, должность, зарплата (нормализованная), описание 200 символов. 0 ошибок CDP. | crit | 2 | backlog |
+| HH-29 | GENERATE: модульный шаблон (6 блоков: OPENING, VACANCY_REACTION, OFFER, WHAT_I_DO, SLOTS, CTA) | crit | 3 | backlog |
+| HH-30 | GENERATE: 5 вариантов OPENING (random выбор) | high | 3 | backlog |
+| HH-31 | GENERATE: 7 модулей WHAT_I_DO (match по ключевым словам вакансии: SMM→контент-завод, B2B→лид-машина, воронки→автоворонки, SEO→AI-тексты, CRM→сегментация, видео→HeyGen, блогеры→AI-поиск) | crit | 3 | backlog |
+| HH-32 | GENERATE: блок OFFER с нормализованной зарплатой (*0.8) или без цены | high | 3 | backlog |
+| HH-33 | GENERATE: anti-AI проверка (без тире —, без hedge words, без passive voice, без "инновационный/комплексный/синергия") | high | 3 | backlog |
+| HH-34 | PREVIEW: показать сгенерированный текст, ждать ввод пользователя (OK/Skip), записать статус SKIP_USER или продолжить | high | 3 | backlog |
+| HH-35 | Тест Спринт 3: `/hh-outreach 10 --dry-run` генерит 10 текстов. Проверить: все 10 уникальны, каждый содержит название компании, каждый содержит calendly.com/timzinin, ни в одном нет тире (—). | crit | 3 | backlog |
+| HH-36 | SEND: DOM-based клик "Откликнуться" (eval по textContent, rect.y > 100, rect.width > 100) | crit | 4 | backlog |
+| HH-37 | SEND: обработка popup "вакансия в другой стране" (eval по textContent "Все равно") | high | 4 | backlog |
+| HH-38 | SEND: DOM-based клик "Добавить сопроводительное" (eval по textContent, rect.y > 500) | crit | 4 | backlog |
+| HH-39 | SEND: polling textarea (каждые 500мс, timeout 5с, 10 попыток) | crit | 4 | backlog |
+| HH-40 | SEND: обработка обязательного сопроводительного (textarea сразу в модалке) | high | 4 | backlog |
+| HH-41 | SEND: обработка выбора резюме (если несколько - выбрать первое или "AI-автоматизатор") | med | 4 | backlog |
+| HH-42 | SEND: ввод текста через CDP type | crit | 4 | backlog |
+| HH-43 | SEND: DOM-based клик "Откликнуться" в модалке (eval, rect.y > 500) | crit | 4 | backlog |
+| HH-44 | SEND: polling "Резюме доставлено" (каждые 500мс, timeout 5с) | crit | 4 | backlog |
+| HH-45 | SEND: screenshot на failure (CDP shot → /tmp/hh-fail-{id}.png) для отладки | high | 4 | backlog |
+| HH-46 | SEND: detect captcha/anti-bot (проверить наличие "капча", "подтвердите", "подозрительная активность" → STOP + reason ANTI_BOT) | crit | 4 | backlog |
+| HH-47 | THROTTLE: пауза 5-10 сек (Math.random * 5 + 5) между откликами | crit | 4 | backlog |
+| HH-48 | THROTTLE: лимит 30 откликов за сессию (hardcoded) | high | 4 | backlog |
+| HH-49 | THROTTLE: предупреждение при sent.json > 150, подтверждение при > 180 | med | 4 | backlog |
+| HH-50 | Тест Спринт 4: `/hh-outreach 3 --preview` отправить 3 отклика. Проверить: все 3 SENT, sent.json обновлён (atomic), дневной лог записан, throttle ~7сек между каждым. Ни одного clickxy в процессе. | crit | 4 | backlog |
+| HH-51 | LOG: reason codes полный набор (SENT, SKIP_NO_TEXTAREA, SKIP_ALREADY_APPLIED, SKIP_DRY_RUN, SKIP_USER, FAILED_NO_CONFIRMATION, FAILED_CDP_ERROR, FAILED_CDP_TIMEOUT, FAILED_ANTI_BOT) | crit | 5 | backlog |
+| HH-52 | LOG: дневной лог log-YYYY-MM-DD.md (все статусы: SENT, SKIP, FAILED, DRY_RUN) | high | 5 | backlog |
+| HH-53 | LOG: message_preview в sent.json (первые 100 символов) | med | 5 | backlog |
+| HH-54 | REPORT: итог (sent/skip/failed с breakdown по reason codes) | crit | 5 | backlog |
+| HH-55 | REPORT: топ-3 вакансии по зарплате (если зарплата указана) | med | 5 | backlog |
+| HH-56 | REPORT: итого за всё время (из sent.json count) | med | 5 | backlog |
+| HH-57 | ERROR: graceful stop при CDP unavailable (показать частичный отчёт) | crit | 5 | backlog |
+| HH-58 | ERROR: graceful stop при anti-bot detection | crit | 5 | backlog |
+| HH-59 | ERROR: recovery при corrupted sent.json (restore from .bak) | high | 5 | backlog |
+| HH-60 | ERROR: DOM fallback при изменении UI (скриншот + warning если кнопка не найдена) | high | 5 | backlog |
+| HH-61 | Тест Спринт 5: `/hh-outreach 10` полный автономный цикл. Проверить: >=8 SENT, sent.json не corrupted, дневной лог полный, отчёт содержит breakdown, throttle соблюдён (>50 сек на 10 откликов). | crit | 5 | backlog |
+| HH-62 | Wiki: обновить с результатами всех тестов | med | 5 | backlog |
+| HH-63 | Codex review финальный (target: 10/10) | crit | 5 | backlog |
 
-## Спринт 1: Фундамент (поиск + чтение)
+## Спринт 1: Инфраструктура (данные + аргументы + CDP)
 
-**Цель:** скилл умеет найти вакансии и прочитать их описание через CDP
+**Цель:** надёжный фундамент - данные, аргументы, CDP соединение
+
+**Задачи:** HH-01 .. HH-14 (14 задач)
 
 **Deliverables:**
-- SKILL.md создан и зарегистрирован
-- sent.json инициализирован с историей 64 откликов
-- CDP healthcheck работает
-- Поиск вакансий с фильтрацией и дедупликацией
-- Чтение описания вакансии с парсингом зарплаты
-- dry-run тест на 5 вакансий
+- SKILL.md зарегистрирован
+- sent.json с валидацией, backup, atomic write
+- Все CLI аргументы парсятся
+- CDP: healthcheck, tab reacquisition, timeouts
 
-**Задачи:** HH-01 .. HH-10
+**Критерий готовности (измеримый):**
+- `/hh-outreach 1 --dry-run` запускается без ошибок
+- sent.json загружается, бэкапится, содержит 64 записи
+- `--query "тест"` корректно подставляется в URL
+- CDP list возвращает таб, eval возвращает данные
+- При недоступном CDP - сообщение "Нужен Allow в Chrome", graceful exit
 
-**Критерий готовности:** `/hh-outreach 5 --dry-run` находит 5 вакансий, читает описания, показывает данные (ID, компания, должность, зарплата, описание 200 символов). Не отправляет ничего.
+## Спринт 2: Поиск и чтение
 
-## Спринт 2: Генерация текста
+**Цель:** скилл находит вакансии, читает описания, парсит зарплату
 
-**Цель:** скилл генерит персонализированные сопроводительные письма
+**Задачи:** HH-15 .. HH-28 (14 задач)
 
 **Deliverables:**
-- Модульный шаблон (6 блоков)
+- Построение URL из аргументов
+- Remote-only фильтр + override
+- Exclusion list + --no-filter
+- Извлечение вакансий с пагинацией
+- Дедупликация
+- Парсинг зарплаты (все форматы)
+- Обработка 0 результатов
+
+**Критерий готовности (измеримый):**
+- `/hh-outreach 5 --dry-run` возвращает ровно 5 вакансий
+- Каждая содержит: ID (число >0), company (непустое), title (непустое), salary (число или null), description (>100 символов)
+- Ни одна не содержит "Wildberries" или "Ozon" в title
+- Ни одна не дублирует ID из sent.json
+- Зарплата "от 100 до 150" парсится как 125000
+- Зарплата "$2000" парсится как 200000
+- Зарплата "gross" парсится как net * 0.87
+- При 0 результатах - сообщение "0 вакансий найдено", exit
+
+## Спринт 3: Генерация текста
+
+**Цель:** персонализированные тексты по модульному шаблону
+
+**Задачи:** HH-29 .. HH-35 (7 задач)
+
+**Deliverables:**
+- 6 блоков шаблона работают
 - 5 вариантов OPENING
 - 7 модулей WHAT_I_DO
-- Нормализация зарплаты
-- Anti-AI проверка
-- 10 тестовых текстов проверены вручную
+- OFFER с нормализованной ценой
+- Anti-AI фильтр
+- Preview flow (OK/Skip)
 
-**Задачи:** HH-11 .. HH-16
+**Критерий готовности (измеримый):**
+- `/hh-outreach 10 --dry-run` генерит 10 текстов
+- Все 10 содержат "calendly.com/timzinin"
+- Все 10 содержат название компании
+- Ни один не содержит символ "—" (em dash)
+- Ни один не содержит слова "инновационный", "комплексный", "синергия"
+- Минимум 3 разных OPENING среди 10 текстов
+- Для вакансии с зарплатой 100К - текст содержит "80К" или "80 000"
+- Для вакансии без зарплаты - текст НЕ содержит конкретную цену
+- `/hh-outreach 1 --preview` показывает текст, ждёт ввода
 
-**Критерий готовности:** `/hh-outreach 10 --dry-run` генерит 10 кастомных текстов. Тим проверяет качество - все 10 должны быть уникальными и персонализированными. Ни один не должен выглядеть как шаблон.
+## Спринт 4: Отправка
 
-## Спринт 3: Отправка
+**Цель:** надёжная отправка через CDP с DOM-based кликами
 
-**Цель:** скилл умеет отправлять отклики через CDP
-
-**Deliverables:**
-- DOM-based клики (НЕ clickxy)
-- Обработка всех popup/модалок HH
-- Polling вместо фиксированных задержек
-- Preview режим работает
-- 3 тестовых отклика отправлены
-
-**Задачи:** HH-17 .. HH-23
-
-**Критерий готовности:** `/hh-outreach 3 --preview` показывает 3 текста, после одобрения отправляет. Все 3 получают статус SENT. Ни одного clickxy в коде.
-
-## Спринт 4: Логирование и безопасность
-
-**Цель:** надёжное хранение данных, throttling, отчёты
+**Задачи:** HH-36 .. HH-50 (15 задач)
 
 **Deliverables:**
-- Atomic write sent.json
-- Reason codes
-- Дневные логи
-- Throttling 5-10 сек
-- Лимит 30 за сессию
-- Итоговый отчёт
-- 10 тестовых откликов в полном цикле
+- Все клики через DOM eval (0 clickxy)
+- Все ожидания через polling (0 фиксированных sleep для UI)
+- Обработка всех модалок HH
+- Anti-bot detection
+- Screenshot на failure
+- Throttling
+- Лимиты
 
-**Задачи:** HH-24 .. HH-32
+**Критерий готовности (измеримый):**
+- `/hh-outreach 3 --preview` отправляет 3 отклика
+- Все 3 получают SENT в sent.json
+- sent.json.bak существует
+- Дневной лог содержит 3 строки с SENT
+- grep "clickxy" в логе/коде = 0 результатов
+- Время выполнения > 15 сек (throttle 5+ сек * 3)
+- При FAILED - screenshot сохранён в /tmp/hh-fail-{id}.png
 
-**Критерий готовности:** `/hh-outreach 10` отправляет 10 откликов с паузами, логирует в sent.json (atomic) и дневной лог. Отчёт показывает sent/skip/failed с reason codes. sent.json не корраптится при прерывании.
+## Спринт 5: Логирование, отчёты, hardening
 
-## Спринт 5: Hardening и финализация
+**Цель:** полный production-ready скилл
 
-**Цель:** обработка ошибок, аргументы CLI, финальный Codex review
+**Задачи:** HH-51 .. HH-63 (13 задач)
 
 **Deliverables:**
-- Graceful stop при CDP ошибках
-- Частичный отчёт при crash
-- Recovery после partial write
-- Все CLI аргументы работают
+- Полный набор reason codes (9 штук)
+- Дневной лог со всеми статусами
+- Отчёт с breakdown по reason codes
+- Graceful stop при CDP и anti-bot
+- Recovery при corrupted sent.json
+- DOM fallback при UI изменениях
 - Wiki обновлена
-- Codex review 10/10
-- 20 тестовых откликов автономно
+- Codex 10/10
 
-**Задачи:** HH-33 .. HH-40
-
-**Критерий готовности:** `/hh-outreach 20` работает полностью автономно. Codex review >= 9/10. Wiki актуальна. Все edge cases обработаны.
+**Критерий готовности (измеримый):**
+- `/hh-outreach 10` выполняется автономно
+- >=8 из 10 получают SENT
+- sent.json не corrupted после прерывания (kill -9 во время записи → восстановление из .bak)
+- Отчёт содержит: "Отправлено: X, Пропущено: Y (breakdown), Ошибок: Z (breakdown)"
+- Codex review >= 9/10
 
 ## Timeline
 
 | Спринт | Задач | Оценка |
 |--------|-------|--------|
-| 1: Фундамент | 10 | ~2 часа |
-| 2: Генерация | 6 | ~1.5 часа |
-| 3: Отправка | 7 | ~2 часа |
-| 4: Логирование | 9 | ~1.5 часа |
-| 5: Hardening | 8 | ~2 часа |
-| **Итого** | **40** | **~9 часов** |
+| 1: Инфраструктура | 14 | ~3 часа |
+| 2: Поиск и чтение | 14 | ~3 часа |
+| 3: Генерация | 7 | ~2 часа |
+| 4: Отправка | 15 | ~4 часа |
+| 5: Hardening | 13 | ~3 часа |
+| **Итого** | **63** | **~15 часов** |
