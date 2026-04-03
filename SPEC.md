@@ -56,7 +56,7 @@ flowchart TD
     D -->|Нет| E[REPORT: 0 найдено]
     D -->|Да| F[READ: открыть вакансию, прочитать описание]
     F --> G{Уже откликались?}
-    G -->|Да| H[LOG: SKIP_SKIP_ALREADY_APPLIED]
+    G -->|Да| H[LOG: SKIP_ALREADY_APPLIED]
     G -->|Нет| I[GENERATE: кастомный текст]
     I --> J{Режим?}
     J -->|dry-run| K[LOG: SKIP_DRY_RUN]
@@ -227,8 +227,8 @@ for (var attempt = 0; attempt < 10; attempt++) {
 | Ошибка | Reason code | Действие |
 |--------|-------------|----------|
 | Daemon failed | FAILED_CDP_UNAVAILABLE | Остановить, сообщить пользователю |
-| Нет кнопки Откликнуться | SKIP_SKIP_ALREADY_APPLIED | SKIP |
-| Textarea не появилась | SKIP_SKIP_NO_TEXTAREA | SKIP |
+| Нет кнопки Откликнуться | SKIP_ALREADY_APPLIED | SKIP |
+| Textarea не появилась | SKIP_NO_TEXTAREA | SKIP |
 | Резюме не доставлено | FAILED_NO_CONFIRMATION | FAILED |
 | Chrome завис | FAILED_CDP_TIMEOUT | Остановить, частичный отчёт |
 | Dry-run режим | SKIP_DRY_RUN | Записать в лог, не отправлять |
