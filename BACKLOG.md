@@ -1,4 +1,4 @@
-# HH Outreach - Бэклог и спринты (v3, post-Codex)
+# HH Outreach - Бэклог и спринты (v4, Codex 9/10)
 
 ## Бэклог
 
@@ -49,7 +49,7 @@
 | HH-43 | SEND: DOM-based клик "Откликнуться" в модалке (eval, rect.y > 500) | crit | 4 | backlog |
 | HH-44 | SEND: polling "Резюме доставлено" (каждые 500мс, timeout 5с) | crit | 4 | backlog |
 | HH-45 | SEND: screenshot на failure (CDP shot → /tmp/hh-fail-{id}.png) для отладки | high | 4 | backlog |
-| HH-46 | SEND: detect captcha/anti-bot (проверить наличие "капча", "подтвердите", "подозрительная активность" → STOP + reason ANTI_BOT) | crit | 4 | backlog |
+| HH-46 | SEND: detect captcha/anti-bot (проверить наличие "капча", "подтвердите", "подозрительная активность" → STOP + reason FAILED_ANTI_BOT) | crit | 4 | backlog |
 | HH-47 | THROTTLE: пауза 5-10 сек (Math.random * 5 + 5) между откликами | crit | 4 | backlog |
 | HH-48 | THROTTLE: лимит 30 откликов за сессию (hardcoded) | high | 4 | backlog |
 | HH-49 | THROTTLE: предупреждение при sent.json > 150, подтверждение при > 180 | med | 4 | backlog |
