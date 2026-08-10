@@ -110,6 +110,10 @@ npm install playwright-core
 - Node.js 20+ и Playwright-core (для batch-режима)
 - Python 3.10+ (для поиска вакансий через HH API)
 
+## Другие скиллы в репо
+
+- [calendar-planner](calendar-planner/README.md) - планировщик задач в Google Calendar: кидаешь задачи свободным текстом, Claude находит слоты и создаёт события двух типов - 🔨 Task и 🔔 Reminder
+
 ## Документация
 
 - [SPEC.md](SPEC.md) - полная спецификация скилла
